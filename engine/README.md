@@ -38,6 +38,8 @@ engine.start();
 | `core/Logger.js` | `createLogger(scope)` with levels (`Logger.level = "silent"` in tests) and a swappable `Logger.sink` |
 | `core/Plugin.js` | `definePlugin`, `PluginRegistry`: install once, dependency checks, reverse-order uninstall |
 | `ecs/World.js` | `defineComponent(name, create)`, `World` (`createEntity/destroyEntity`, `add/get/has/remove`, cached `query(A, B)`), recycled ids with generations; `EcsPlugin` sets `engine.world` |
+| `scene/Object3DComponent.js` | `Transform` (pure data), `Object3DRef`, `readTransform/applyTransform`, `createTransformSyncSystem` (Transform → Object3D in `lateUpdate`). No `three` import |
+| `scene/ScenePlugin.js` | Depends on `ecs`. `engine.use(ScenePlugin, { root: threeScene })` → `spawn(obj)`, `despawn(id)`, `objectOf`, `entityOf`; sets `engine.scene` |
 
 ## Systems
 
