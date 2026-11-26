@@ -5,3 +5,4 @@ export { Time } from "./core/Time.js";
 export { Engine, Phase } from "./core/Engine.js";
 export { Logger, LogLevel, createLogger } from "./core/Logger.js";
 export { definePlugin, PluginRegistry } from "./core/Plugin.js";
+export { World, defineComponent, EcsPlugin } from "./ecs/World.js";
