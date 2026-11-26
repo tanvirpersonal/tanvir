@@ -1,5 +1,6 @@
 import { EventBus } from "./EventBus.js";
 import { Time } from "./Time.js";
+import { PluginRegistry } from "./Plugin.js";
 
 /** Loop phases, run in this order every frame. */
 export const Phase = Object.freeze({
@@ -26,6 +27,7 @@ export class Engine {
         this.time = time ?? new Time();
         this.events = events ?? new EventBus();
         this.systems = [];
+        this.plugins = new PluginRegistry(this);
         this.running = false;
         this.paused = false;
         this._frameHandle = null;
@@ -36,6 +38,11 @@ export class Engine {
             this.frame(now);
             this._frameHandle = this._requestFrame(this._loop);
         };
+    }
+
+    /** Install a plugin (see Plugin.js). Returns the plugin's API. */
+    use(plugin, options) {
+        return this.plugins.use(plugin, options);
     }
 
     addSystem(system) {
@@ -122,6 +129,7 @@ export class Engine {
 
     dispose() {
         this.stop();
+        this.plugins.clear();
         for (const system of [...this.systems].reverse()) this.removeSystem(system);
         this.events.clear();
     }
