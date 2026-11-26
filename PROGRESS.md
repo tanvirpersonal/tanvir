@@ -21,7 +21,7 @@
 - [x] `engine/README.md` (public API overview)
 
 ## Phase 2 — ECS + scene bridge
-- [ ] `engine/ecs/World.js` + tests
+- [x] `engine/ecs/World.js` + tests (incl. `EcsPlugin` → `engine.world`)
 - [ ] `engine/scene/Object3DComponent.js` + transform sync system
 - [ ] Scene serialization wrapper over RKP v2
 
@@ -47,14 +47,17 @@
 See `docs/engine/ROADMAP.md` (play mode, input, physics, audio, player app, export).
 
 ## Next up
-1. `engine/ecs/World.js` — entities (int ids, recycled), components keyed by
-   component definition, `query(A, B)` with cached results, `addSystem` hooks into
-   `Engine` via an `EcsPlugin`. Test in `test/engine/world.test.js`.
-2. `engine/scene/Object3DComponent.js` + transform sync system (needs `three`;
-   test with the `three` npm package or keep it pure-data).
+1. `engine/scene/Object3DComponent.js` — `Object3DRef` component holding a
+   `THREE.Object3D`, plus `Transform` component (position/rotation/scale data) and a
+   `lateUpdate` sync system Transform → Object3D. Keep the component data pure so
+   tests don't need `three`; inject a fake Object3D (`{position:{set()},...}`) in tests.
+2. `ScenePlugin` (depends on `ecs`): owns a root object, adds/removes Object3D on
+   entity create/destroy (listen to `ecs:entity-destroyed`).
+3. Then: scene serialization wrapper over RKP v2 (read `docs/RKP_V2.md` first).
 
 ## Session log
 <!-- newest last: YYYY-MM-DD — agent — did / half-done / next -->
 - 2026-11-26 — Claude — Analyzed repo (ModelForge 3D, 23/23 tests green at `9d06026`). Wrote CLAUDE.md, AGENTS.md, ARCHITECTURE.md, ROADMAP.md, PROGRESS.md. Next: Phase 1 engine kernel.
 - 2026-11-26 — Claude — Added engine/core EventBus, Time, Engine (phased loop, injectable scheduler, pause) + tests (38/38 green) and engine/index.js. Nothing in the app uses engine/ yet. Half-done: none. Next: Logger.js.
 - 2026-11-27 — Claude — Phase 1 done: Logger, Plugin registry + Engine.use(), barrel exports, engine/README.md (46/46 green). Next: Phase 2 World.js.
+- 2026-11-27 — Claude — Added engine/ecs/World.js (components, cached queries, id recycling, EcsPlugin) + 7 tests (53/53 green), exported + documented. Half-done: none. Next: scene/Object3DComponent.js.
