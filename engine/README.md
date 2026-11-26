@@ -37,6 +37,7 @@ engine.start();
 | `core/Engine.js` | Main loop. Systems run in phases: `preUpdate → fixedUpdate×n → update → lateUpdate → render`. Supports `start/stop/setPaused/frame()` and `use(plugin)` |
 | `core/Logger.js` | `createLogger(scope)` with levels (`Logger.level = "silent"` in tests) and a swappable `Logger.sink` |
 | `core/Plugin.js` | `definePlugin`, `PluginRegistry`: install once, dependency checks, reverse-order uninstall |
+| `ecs/World.js` | `defineComponent(name, create)`, `World` (`createEntity/destroyEntity`, `add/get/has/remove`, cached `query(A, B)`), recycled ids with generations; `EcsPlugin` sets `engine.world` |
 
 ## Systems
 
