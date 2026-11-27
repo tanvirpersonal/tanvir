@@ -8,3 +8,4 @@ export { definePlugin, PluginRegistry } from "./core/Plugin.js";
 export { World, defineComponent, EcsPlugin } from "./ecs/World.js";
 export { Transform, Object3DRef, readTransform, applyTransform, createTransformSyncSystem } from "./scene/Object3DComponent.js";
 export { ScenePlugin } from "./scene/ScenePlugin.js";
+export { SceneSerializer, embedInRKP, extractFromRKP, ENGINE_SCENE_FORMAT, ENGINE_SCENE_VERSION } from "./scene/SceneSerializer.js";
