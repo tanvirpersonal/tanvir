@@ -40,6 +40,7 @@ engine.start();
 | `ecs/World.js` | `defineComponent(name, create)`, `World` (`createEntity/destroyEntity`, `add/get/has/remove`, cached `query(A, B)`), recycled ids with generations; `EcsPlugin` sets `engine.world` |
 | `scene/Object3DComponent.js` | `Transform` (pure data), `Object3DRef`, `readTransform/applyTransform`, `createTransformSyncSystem` (Transform → Object3D in `lateUpdate`). No `three` import |
 | `scene/ScenePlugin.js` | Depends on `ecs`. `engine.use(ScenePlugin, { root: threeScene })` → `spawn(obj)`, `despawn(id)`, `objectOf`, `entityOf`; sets `engine.scene` |
+| `scene/SceneSerializer.js` | `new SceneSerializer([Transform, ...])` → `serialize(world)` / `deserialize(world, data)` (JSON, custom codecs via `register`). `embedInRKP(asset, data)` / `extractFromRKP(asset)` store it at `customProperties.engineScene` in an RKP v2 asset (still validates) |
 
 ## Systems
 
